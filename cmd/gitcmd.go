@@ -29,16 +29,20 @@ func getLatestTag() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	var latestTag string
-	if runtime.GOOS == "windows" {
-		lines := strings.Split(strings.TrimSpace(string(output)), "\n")
-		latestTagLine := lines[len(lines)-1]
-		latestTag = strings.Split(latestTagLine, "/")[2]
-	} else {
-		latestTagLine := strings.TrimSpace(string(output))
-		latestTag = strings.Split(latestTagLine, "/")[2]
+
+	trimmedOutput := strings.TrimSpace(string(output))
+	if trimmedOutput == "" {
+		return "", fmt.Errorf("未找到标签")
 	}
-	latestTag = strings.ReplaceAll(latestTag, "v", "")
+
+	var latestTag string
+	parts := strings.Split(trimmedOutput, "/")
+	if len(parts) >= 3 {
+		latestTag = strings.ReplaceAll(parts[2], "v", "")
+	} else {
+		return "", fmt.Errorf("无法解析标签名称")
+	}
+
 	return latestTag, nil
 }
 
