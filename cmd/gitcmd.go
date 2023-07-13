@@ -18,6 +18,7 @@ const (
 func getLatestTag() (string, error) {
 	var cmd *exec.Cmd
 	if runtime.GOOS == "windows" {
+		fmt.Println("env is windows")
 		cmd = exec.Command("powershell", "-Command",
 			"git ls-remote --tags --sort='v:refname' --refs "+gitRepoURL+" | Select-Object -Last 1")
 	} else {
