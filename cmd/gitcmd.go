@@ -48,14 +48,14 @@ func getLatestTag() (string, error) {
 
 func installLatestVersion(repo, latestTag string) error {
 	var cmd *exec.Cmd
-	cmd = exec.Command("go", "clean", "-modcache")
-	err := cmd.Run()
-	if err != nil {
-		return fmt.Errorf("go clear -modcache err:" + err.Error())
-	}
+	//cmd = exec.Command("go", "clean", "-modcache")
+	//err := cmd.Run()
+	//if err != nil {
+	//	return fmt.Errorf("go clear -modcache err:" + err.Error())
+	//}
 	modulePath := fmt.Sprintf("%s@%s", repo, latestTag)
 	cmd = exec.Command("go", "install", modulePath)
-	err = cmd.Run()
+	err := cmd.Run()
 	if err != nil {
 		return fmt.Errorf("执行命令时发生错误：%v", err)
 	}
