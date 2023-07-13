@@ -14,7 +14,7 @@ var rootCmd = &cobra.Command{
 }
 
 func Execute() {
-	fmt.Println("falg is 3")
+	fmt.Println("falg is 4")
 	isDone := Prepare()
 	if isDone {
 		os.Exit(0)
